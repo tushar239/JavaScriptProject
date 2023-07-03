@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<!-- Everything other than real content that appears on the page goes here like title, javascript, css etc -->
+<head>
+<meta charset="utf-8" />
+<title>Buckey's website</title>
+<link rel="stylesheet" href="../css/main_flex_box_model.css" />
+</head>
+<body>
+	<div id="big_wrapper">
+		<!-- header of the page -->
+		<header id="top_header">
+			<h1>Welcome to my site</h1>
+		</header>
+
+		<!-- navigation -->
+		<nav id="top_menu">
+			<ul>
+				<li>Home</li>
+				<li>Tutorials</li>
+				<li>Podcast</li>
+			</ul>
+		</nav>
+
+		<div id="new_div">
+			<!-- Actual content -->
+			<section id="main_section">
+				<!-- group of similar information. It can also have header and footer. -->
+				<article>
+					<header id="article-header" class="color">
+						<!-- Header Group Grouping of titles: Just to tell html that title consists of more than one html tags. Otherwise, html gets confused about which line is the title.  -->
+						<hgroup class="text">
+							<h2>Title of Article</h2>
+							<h1>Subtitle of Article</h1>
+						</hgroup>
+					</header>
+					<p change-color="" class="text before-content">This is the best
+						article</p>
+
+
+					<footer id="article-footer" class="color">
+						<p>footer of article</p>
+					</footer>
+				</article>
+			</section>
+
+			<!-- side bar -->
+			<aside id="side_news">
+				<h4>News</h4>
+				Bucky has a new dog!
+			</aside>
+		</div>
+		<footer id="the_footer"> Copyright thenewboston 2011 </footer>
+	</div>
+</body>
+</html>

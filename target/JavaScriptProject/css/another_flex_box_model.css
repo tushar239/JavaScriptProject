@@ -1,0 +1,50 @@
+* {
+	margin:0px;
+	padding:0px;
+}
+
+body {
+	max-width:100%;
+	border: 3px solid red;
+	display:-webkit-box;
+}
+div {
+	margin: 10px 0px;
+	border: 2px solid green;
+}
+#big_wrapper {
+	max-width:1600px;
+	/* consider big_wrapper as a box */
+	display:-webkit-box;
+	/* same as display=block for all children of big_wrapper  - column1,2,3*/
+	-webkit-box-orient:horizontal;
+	/* make big_wrapper flexible means its children's size are going change dynamically depending on the change in size of the browser */
+	-webkit-box-flex:1;
+}
+
+#column1, #column2, #column3  {
+	margin: 10px;
+	max-width: 400px;
+	border: 1px solid blue;
+	overflow:hidden;
+	display:-webkit-box;
+	/* children of column1,2,3 at deepest level will be vertically aligned e.g. column1 has children p and sub_column1. sub_column1 has children table and p and so on*/
+	-webkit-box-orient:vertical;
+	/* column1,2,3 and their children at deepest level will be flexible */
+	-webkit-box-flex:1;
+	word-wrap:break-word; 
+}
+img {
+	/* to fix image inside its parent div, it is necessary to specify its width=100% same as its parent*/
+	width:100%;
+}
+table { /* overflow:hidden inside #column1 will hide overflowing table conents*/
+	/* to fix table inside its parent div, it is necessary to specify its width=100% and table-layout=fixed 
+	width:100%;
+	table-layout: fixed;
+	*/
+}
+#column3 {
+	/* column3 is also a part of flex but its size will not reduce below 200px*/
+	min-width: 200px;
+}

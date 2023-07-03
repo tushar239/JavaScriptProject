@@ -1,0 +1,82 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+header,hgroup,nav,section,article,aside,footer {
+	display: block;
+}
+
+
+h2 {
+	font: bold 20px Tahoma;
+}
+
+h1 {
+	font: bold 14px Tahoma;
+}
+
+body {
+	/* default width is 100% only for a body, but it is required to set manually to make flexible box model work properly*/
+	width:100%;
+	/* Telling browser that it will have bunch of flexible box models
+		Right now, flexible box model works only on Chrome. Chrome uses webkit for that. 
+	*/ 
+	display:-webkit-box;
+	/* Telling browser to make all body's children (here only big_wrapper div) to center aligned */
+	-webkit-box-pack:center;
+}
+
+#big_wrapper {
+	max-width:1000px;
+	margin: 20px 0px;
+	/* consider big_wrapper as a box */
+	display:-webkit-box;
+	/* same as display=block for all children of big_wrapper */
+	-webkit-box-orient:vertical;
+	/* make big_wrapper flexible means its children's size are going change dynamically depending on the change in size of the browser */
+	-webkit-box-flex=1;
+}
+
+#top_header {
+	background: yellow;
+	border: 3px solid black;
+	padding: 20px;
+}
+
+#top_menu {
+	border:red;
+	background:blue;
+	color:white;
+}
+
+#top_menu li {
+	display:inline-block;
+	list-style:none;
+	padding:5px;
+	font:bold 14px Tahoma;
+}
+
+#new-div {
+	/* just remember that if children are declared as box then parent (big_wrapper) has to be declared as a box. */
+	display:-webkit-box;
+	/* All children (article and aside should aligned horizontal */
+	-webkit-box-orient:horizontal;
+	/* make new_div flexible means its children's (article and aside)size are going change dynamically depending on the change in size of the browser */
+	-webkit-box-flex=1;
+	margin: 20px;
+	padding: 20px;
+}
+
+#side_news {
+	border:1px solid red;
+	width: 220px;
+	margin: 20px 0px;
+	backgroud: #66CCCC;
+}
+
+#the_footer {
+	text-align:center;
+	padding: 20px;
+	border-top: 2px solid green;
+}

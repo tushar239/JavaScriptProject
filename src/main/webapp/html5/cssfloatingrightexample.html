@@ -1,0 +1,107 @@
+<!-- http://html.net/tutorials/css/lesson13.php -->
+
+<!-- 
+http://coding.smashingmagazine.com/2009/10/19/the-mystery-of-css-float-property/
+
+The CSS float property allows a developer to incorporate table-like columns in an HTML layout without the use of tables.
+
+The purpose of the CSS float property is, generally speaking, to push a block-level element to the left or right, taking it out of the flow in relation to other block elements. This allows naturally-flowing content to wrap around the floated element.
+ -->
+
+
+<html>
+<head>
+<style type="text/css">
+#main_div {
+	width: 900px;
+	height: 600px;
+	margin: 20px auto;
+	padding:20px;
+	border: 1px solid;
+	border-color: red;
+}
+
+#column1, #column2, #column3, #column4, #column5, #column6 {
+	width:100px;
+	border: 1px solid;
+	
+}
+/* column1 and column2 and column3 are part of floating starts from right, so they are out of normal flow of html elements.
+But column 4,5,6 are still part of normal flow. Therefore, they should be shifted up to take place of column 1,2,3.
+
+By setting clear property of column 5, column 5 will not be affected because by column 4's float'. column5 will stay at its position.   
+*/
+#column1 {
+	float:right;
+	
+}
+#column2 {
+	float:right;
+	
+}
+
+
+#column3 {
+	float:right;
+}
+
+/* column4 is not a part of floating, but as column1 and column2 and column3 are moved, column4,5,6 will move up because they are still part of original flow*/
+#column4 {
+	float:none; /*default value is none*/
+}
+#column5 {
+	clear:both; /*if column 4 has become float=right then column 5 won't move up */
+}
+
+/* try this:
+	Comment out above clear:both for column5 and uncomment below style.
+	
+	You are adding some content ("") before and after.
+	It adds elements with value "" before and after child element(s) of column5.
+	These elements are part of column5 div only. 
+	Now there are 3 elements in column5 div: before element, child element(s), after element.
+	You are forcing them to be displayed as table. So, each element will acquire one row.
+	Then you are clearing before and after elments from floating effect.
+	   
+ */
+ /*
+#column5:before, #column5:after {
+	content:""; display:table;
+	border: 1px solid red;
+	clear:both;
+	
+}
+*/
+#column6 {
+	float:right; /* starts another floating under column 5*/
+}
+
+</style>
+</head>
+<body>
+	<div id="main_div">
+		<div id="column1">
+			<p>column1:Haec disserens qua de re agatur et in quo causa consistat non
+				videt...</p>
+		</div>
+
+		<div id="column2">
+			<p>column2:causas naturales et antecedentes, idciro etiam nostrarum
+				voluntatum...</p>
+		</div>
+
+		<div id="column3">
+			<p>column3:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		<div id="column4">
+			<p>column4:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		<div id="column5">
+			<p>column5:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		<div id="column6">
+			<p>column6:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		
+	</div>
+</body>

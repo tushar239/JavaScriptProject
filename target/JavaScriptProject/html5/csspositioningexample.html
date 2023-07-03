@@ -1,0 +1,45 @@
+
+<!-- http://www.w3schools.com/cssref/pr_class_position.asp -->
+<html>
+<head>
+<style type="text/css">
+	#main_div {
+		position:relative;
+		width: 990px;
+		margin:20px auto;
+		border: 1px solid;
+	}
+	#main_div div {
+		width: 200px;
+	}
+	
+	#div1 {
+		/* when div1's position is absolute then it takes position relative to its parent tag whose position is other than static
+		Here its parent tag is main_div. 
+		But absolute positioning element is taken out the of the normal flow. So, div1 is not considered in normal flow. 
+		div2 will be considered as first element as a part of normal flow. so div2 will start from the top.
+		
+		If div1's position is changed to relative then div1 is still considered as a part of the normal flow.
+		Only thing is it is moved from its original position. Its original place will be left empty. So, there will be a gap before div2. 
+		*/
+		position:absolute; /* change it to relative and see what happens*/
+		left:40px;
+		top:300px;
+	}
+	
+</style>
+</head>
+<body>
+<div id="main_div">
+	<div id="div1">
+		<p>Hi, My name is Tushar Chokshi. I work at ADP as a software engineer. My office starts at 9 am.</p>
+	</div>
+	<div id="div2">
+		<p>Hi, My name is Miral Chokshi. I work at University of WA as a profession. My office starts at 9 am.</p>
+	</div>
+	<div id="div3">
+		<p>Hi, My name is Srikant Chokshi. I study at Sammamish Montesary. My school starts at 9 am.</p>
+	</div>
+</div>	
+</body>
+</html>

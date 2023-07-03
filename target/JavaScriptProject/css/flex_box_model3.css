@@ -1,0 +1,99 @@
+* {
+	margin:0px;
+	padding:0px;
+}
+body {
+}
+/*
+	NOTE: webkit-***** properties are only for chrome browser. It doesn't work on firefox or IE or Safari.
+*/
+
+
+#mommy {
+	max-width:1000px;
+	height:500px;
+	border: 3px solid red;
+	/* To make children tags flexible, parent tag has to be flexible box model.
+	   In other words, to have an effect of -webkit-box-*** property on children tags, you need to set display:-webkit-box.
+	   If you don't do set a parent tag as a flexible box model, there won't be any effect of -webkit* tags on parent or children tags.
+	   Try commenting out below line and see.*/
+	display:-webkit-box;
+	/* All children are aligned horizontally (same as float:left)*/
+	-webkit-box-orient:horizontal;
+	/* Changing the order of children tags */
+	-webkit-box-direction:reverse;
+	/* making all children tag center aligned horizontally. 
+	Default value is 'stretched'. If width property is not set for kids tags to specific width and -webkit-box-orient is not set to horizontal, then they will be stretched to full width of parent  */
+	-webkit-box-pack:center;
+	/* making all children tag center aligned vertically. 
+	Default value is 'stretched'. If height property is not set for kids tags to specific height, then they will be stretched to full height of parent  */
+	-webkit-box-align:center;
+	
+}
+#Kid1, #Kid2, #Kid3, #Kid4 {
+	
+	height:200px;
+	/*
+	to have a flexible box (any -webkit-box-*** property effect) effect on children of Kid tag, Kid tag has to be set to flexible box.
+	
+	display:-webkit-box;
+	-webkit-box-align:center;
+	-webkit-box-pack:center;
+	*/
+	
+	/* to make the corners of tags rounded */
+	-webkit-border-radius:25px;
+	/* to create a shadow effect. right and bottom sides will have shadow effect of 8 px wide due to first two 8 px attributes.
+	 third 8px will create blurred shadowing  
+	 fourth attribute (inset) will bring the shadow on the box at left and top sides*/
+	-webkit-box-shadow:rgb(110, 110, 110) 8px 8px 8px;
+	/*
+	negative numbers will have shadow effects on top and left sides
+	-webkit-box-shadow:rgb(110, 110, 110) -8px -8px;
+	*/
+}
+#Kid1 {
+	width:100px;
+	border: 3px solid green;
+	background: yellow;
+	padding: 20px;
+	margin: 10px;
+	/* To place this kid at third position under the parent tag */
+	-webkit-box-ordinal-group:3;
+}
+#Kid2 {
+	/*width:100px;*/
+	border: 3px solid green;
+	background: blue;
+	padding: 20px;
+	margin: 10px;
+	/* making Kid2 flexible. It means that other kids tags take fixed width 60px, but this kid will acquire
+	rest of its parent width. width:100px will have no effect on this kid tag. 
+		+
+	Kid2's size will be resized as parent size is resized by resizing browser size. 
+	To make all the kids tag resizable, all kids tag should have non-zero value of -webkit-box-flex.
+	One important thing to note is if parent tag (mommy) has a fixed with instead of min/max-width, parent tag is not resizable and so kids tags are not resizable.
+	
+	If you set -webkit-box-flex=1 for all kids tags, then all kids tags will be of equal width sharing the entire width of the parent.
+	In this case every kid will have (1000px-parent's width/4=250px).
+	
+	Now what if one of these kids have -webkit-box-flex=2 and others have 1?
+	Total value of -webkit-box-flex becomes 5 instead of 4. That one kid tag will acquire twice the width of others. 
+	*/
+	-webkit-box-flex:1;
+
+}
+#Kid3 {
+	width:100px;
+	border: 3px solid green;
+	background: red;
+	padding: 20px;
+	margin: 10px;
+}
+#Kid4 {
+	width:100px;
+	border: 3px solid green;
+	background: white;
+	padding: 20px;
+	margin: 10px;
+}

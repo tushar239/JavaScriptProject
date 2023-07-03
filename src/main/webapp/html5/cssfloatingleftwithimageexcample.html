@@ -1,0 +1,45 @@
+<html>
+<head>
+<style type="text/css">
+	/* 
+		By setting float:left on img, image will be taking out of normal flow and set to the left of container.
+		All other elements after img will be moved up to take img's location in the flow and then they will be moved to right of img, so that they
+		don't overlap and image. 
+		By default, Paragraph (with class=intro) will be wrapped under the image, if paragraph is bigger(taller) than image.
+		To experiment it, try to add more information to p with class=intro
+	*/
+	img.picture {
+		float:left;
+	}
+	/* paragraph with class=moreinfo will not be affected by float left set on img.
+	It will move up because img is not a part of nomal flow now, but it won't flow around an image.
+	*/
+	p.moreinfo {
+		clear:left;
+	}
+</style>
+</head>
+
+<body>
+	<div>
+		<p class="heading">Heading</p>
+		<img class="picture" src="img1.jpeg" alt="image cannot be displayed."/>
+		<div>
+			<p>hi, my name is Tushar.hi, my name is Tushar.hi, my name is Tushar.</p>
+		</div>
+		<p class="intro">Information about the image is displayed here. It's an interesting image downloaded from google. Have fun.
+		Information about the image is displayed here. It's an interesting image downloaded from google. Have fun.
+		Information about the image is displayed here. It's an interesting image downloaded from google. Have fun.
+		Information about the image is displayed here. It's an interesting image downloaded from google. Have fun.
+		Information about the image is displayed here. It's an interesting image downloaded from google. Have fun.
+		Information about the image is displayed here. It's an interesting image downloaded from google. Have fun.
+		</p>
+		<p class="moreinfo">
+			More information.
+		</p>
+		<p class="moreinfo1">
+			More information.
+		</p>
+	</div>
+</body>
+</html>

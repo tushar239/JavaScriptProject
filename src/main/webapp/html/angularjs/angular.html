@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<!--
+https://docs.angularjs.org/guide/introduction
+
+AngularJS provides MVC architecture for Javascript.
+    html - view
+    controller - angularjs controller
+    model - controller manipulates $scope (model)
+
+ng-app directive:
+    ng stands for angular
+    ng-app is a one of the directive given by angularjs. when angular js sees this directive, it bootstraps itself (initializes itself and starts managing the page).
+
+    You keep only one ng-app in a page. it will start applying angularjs from the dom where you put ng-app.
+    So, if you put ng-app on some div, then angularjs won't work anywhere outside that div.
+
+Directives:
+    Directives are all about making controller and view to work together using model. They can be useful to pass the data to and from view and controller.
+-->
+
+<body ng-app="myApp">
+<div>
+    <p>
+        <!-- {{...}} is called binding expression. In some other js languages, it is called handlebars. -->
+        Binding Expression example
+
+    <p>{{ 843 / 42}}</p>
+    </p>
+
+    <p>Name : <input type="text" ng-model="name"></p>
+
+    <p>Hello {{name}}</p>
+
+</div>
+
+------------------------------------------------------
+<!--
+   You can have many controllers. Controllers are just functions.
+   Angular pass a parameter to controller function.
+   Controller function takes $scope parameter.
+   Things that we attache to $scope that becomes model.
+-->
+<div ng-controller="MainController">
+    <h1>MainController example</h1>
+    First Name: <input type="text" ng-model="firstName"><br>
+    Last Name: <input type="text" ng-model="lastName"><br>
+    Name Decoration Symbol: <input type="text" ng-model="decoration.symbol"><br>
+
+    <p>FirstName LastName: {{firstName + ' ' +lastName}}</p>
+
+    <p>Full Name: {{getFullName() | decorateFilter:decoration.symbol}}</p>
+
+
+    <div>
+        <!-- Browser actually doesn't understand that src has ng binding expression because browser first renders an html and then angular js wakes up to replace all binding expressions in it.
+        So, browser just tries to download an image from {{person.imageSrc}}, which will result in 404.
+        For this reason, angular provides ng-src directive. Using ng-src directive, angular will attach src attribute to img after angularjs is bootstraped.
+         -->
+        <!--
+        <img src="{{person.imageSrc}}" title="{{person.firstName+ ' ' + person.lastName}}" />
+        -->
+        <img ng-src="{{person.imageSrc}}" title="{{person.firstName+ ' ' + person.lastName}}"/>
+    </div>
+
+    <h1>StockController example</h1>
+
+    <div ng-controller="StockController">
+        <p>Stock: {{stock.symbol + ' ' +stock.price}}</p>
+    </div>
+
+    <h1>HttpServiceController example</h1>
+    <!-- $http is an AngularJS service for reading data from remote servers.-->
+    <div ng-controller="HttpServiceController">
+        <h3>ng-repeat example with ul-li</h3>
+        <!-- Using ng-repeat with ul-li -->
+        <ul>
+            <li ng-repeat="x in names">
+                {{ x.Name + ', ' + x.Country }}
+            </li>
+        </ul>
+        <!-- Using ng-repeat with table -->
+        <h3>ng-repeat example with table</h3>
+        <table border="1">
+            <tr ng-repeat="x in names">
+                <td>{{x.Name}}</td>
+                <td>{{x.Country}}</td>
+            </tr>
+
+        </table>
+    </div>
+
+    ------------------------------------------------------
+    <!--
+     ng-model is a directive that flows the data between view and controller using $scope.
+     Whatever you type in search text box will be set in $scope.username. As soon as you type the value in search box,
+     angular will reevaluate the binding expressions on that page. So {{username}} will be replaced by typed value.
+    -->
+    <h1>Testing Form</h1>
+
+    <div ng-controller="TestFormController">
+        <form name="searchUser">
+            <input type="search" placeholder="Username to find" ng-model="username"/>
+            <input type="submit" value="Search" ng-click="search()"/> <!-- you can also use ng-submit="search()" -->
+        </form>
+        <p>
+            Searched Username: {{username}}
+        </p>
+
+        <p>
+            Successful Search Result: {{successSearchResult}}
+        </p>
+
+        <p>
+            Error Search Result: {{errorSearchResult}}
+        </p>
+    </div>
+
+    ------------------------------------------------------
+
+</div>
+
+<script>
+
+    (function () {
+
+        /*
+        creating another module for filters
+        */
+        var filters = angular.module('myFilters', []);
+        filters.filter("decorateFilter", function () {
+                    return function(input, decorationSymbol) {
+                        return decorationSymbol + input + decorationSymbol;
+                    }
+                }
+        );
+
+        // An AngularJS module defines an application.
+        // The module is a container for the application controllers.
+        // myApp is a name of a module. It is same as ng-app name. [] is for dependencies
+        // This will create a new module. If you want to use an existing module, then use angular.module('myApp')
+        var app = angular.module('myApp', ['myFilters']);
+
+
+
+        /*
+         Controller:
+         https://docs.angularjs.org/guide/controller
+
+         Controllers always belong to a module.
+
+         When a Controller is attached to the DOM via the ng-controller directive, Angular will instantiate a new Controller object, using the specified Controller's constructor function.
+         A new child scope will be created and made available as an injectable parameter to the Controller's constructor function as $scope.
+
+         Typically, when you create an application you need to set up the initial state for the Angular $scope.
+         You set up the initial state of a scope by attaching properties to the $scope object inside controller.
+
+         Controller should never talks to View (DOM) directly.
+         */
+        app.controller('MainController', function ($scope) {
+            // intializing the models
+            $scope.firstName = "John";
+            $scope.lastName = "Doe";
+
+            var person = {
+                firstName: "scott",
+                lastName: "Allen",
+                imageSrc: "http:odetocode.com/Images/scott_allen_2.jpg"
+            };
+            $scope.person = person;
+
+            $scope.decoration = {
+                symbol: "*"
+            };
+
+            // attaching a function that can be called from html
+            $scope.getFullName = function () {
+                return ($scope.firstName + " " + $scope.lastName);
+            };
+
+        });
+
+        app.controller('StockController', function ($scope) {
+            $scope.stock = {
+                symbol: 'hpq',
+                price: 120
+            };
+        });
+
+        /* $http is an AngularJS service for reading data from remote servers.
+         You can ask angular to provide $http just like $scope.
+
+         It has get,post,put,delete methods.
+         */
+
+        app.controller('HttpServiceController', function ($scope, $http) {
+
+            $http.get("http://www.w3schools.com/angular/customers.php")
+                    .success(function (response) {
+                        $scope.names = response.records;
+                    }).error(function (reason) {
+                        $scope.error = "Could not fetch the records";
+                    });
+
+            // OR
+            /*
+             var promise = $http.get("http://www.w3schools.com/angular/customers.php");
+             promise.success(function(response) {
+             $scope.names = response.records;
+             });
+             promise.error(function(reason) {
+             $scope.error = "Could not fetch the records";
+             });
+             */
+        });
+
+        app.controller("TestFormController", function ($scope, $http) {
+
+            $scope.username = "Tushar"; // initializing the username for the search box when page renders
+
+            // on click of Search button of the form, this function will be called.
+            $scope.search = function () {
+
+                $http.get("https://api.github.com/users/" + $scope.username).
+                        success(function (result) {
+                            $scope.errorSearchResult = "";
+                            $scope.successSearchResult = result;
+                        }).error(function (reason) {
+                            $scope.successSearchResult = "";
+                            $scope.errorSearchResult = reason;
+                        });
+
+            }
+
+        });
+
+
+
+    }());
+</script>
+
+</body>
+</html>

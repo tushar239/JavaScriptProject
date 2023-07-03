@@ -1,0 +1,104 @@
+<!-- http://html.net/tutorials/css/lesson13.php -->
+
+
+<!--
+Block elements by default acquires the entire width of it parent width.
+They leave line before and after them. They appear one after another vertically.
+When you make it float, 
+- it shrinks to its content width
+- move out of normal flow and shifts to extreme left or extreme right inside its parent container
+- elements below it move up (because they are still part of normal flow) and if they (or part of them) are going under the floated element
+  then they are adjusted accordingly so that their part are not hidden behind floated element.  
+
+Inline elements don't leave line breaks before and after them. They appear one after another horizontally.
+If there is not enough browser width, they automatically start moving to next line.
+
+Block elements are:
+div
+p
+h1
+ul/li
+  
+Inline elements are:
+span
+img 
+a
+strong
+   
+you can make block elements inline and vice-a-versa using "display:inline/block/..." property
+you cannot use height and width for span element. you can use line-height (space between two lines) and text flow to define width.     
+-->
+
+<html>
+<head>
+<style type="text/css">
+#main_div {
+/*
+	width: 900px;
+	height: 300px;
+	margin: 20px auto;
+	padding:20px;
+	*/
+	border: 1px solid;
+	border-color: red;
+}
+
+#column1, #column2, #column3, #column4 {
+	
+	border: 1px solid;
+	
+}
+/* column1 and column2 are part of floating starts from left, so they are out of normal flow of html elements.
+But column 3 and 4 are still part of normal flow. Therefore, column 3 and 4 are shifted up to take place of column 1 and 2. 
+*/
+
+#column1 {
+	width:auto;
+	float:left;
+	
+}
+#column2 {
+	width:100px;
+	float:left;
+	
+}
+
+
+
+</style>
+</head>
+<body>
+	<div id="main_div">
+		<div id="column1">
+			<p>column1:Haec disserens qua de re agatur et in quo causa consistat non
+				videt...</p>
+		</div>
+
+		<div id="column2">
+			<p>column2:causas naturales et antecedentes, idciro etiam nostrarum
+				voluntatum...</p>
+		</div>
+
+		<div id="column3">
+			<p>column3:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		<div id="column4">
+			<p>column4:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		<div id="column5">
+			<p>column5:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+		<div id="column6">
+			<p>column6:nam nihil esset in nostra potestate si res ita se haberet...</p>
+		</div>
+	</div>
+	<br/><br/><br/><br/>
+	<div id="another_div" style="border:2px solid green;">
+		<p style="float:left">another para</p>
+		<div style="float:left" id="sub_another_div">
+			<p> sub another para1 </p>
+			<p> sub another para2 </p>
+			<p> sub another para3 </p>
+		</div>
+	</div>
+</body>

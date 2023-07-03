@@ -1,0 +1,37 @@
+<!--  Example of data-*** attribute in HTML5 -->
+<!-- 
+http://html5doctor.com/html5-custom-data-attributes/
+
+Custom data attributes are intended to store custom data private to the page or application, 
+for which there are no more appropriate attributes or elements.
+
+ -->
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../js/jquery/jquery-2.1.1.min.js"></script>
+<script>
+	(function($) {// anonymous self executing function, aliasing jQuery with $
+		$(function() { // .ready function
+			var user = $("span#user");
+			// traditional way to retrieve any attribute value.
+			// but custom data-*** attribute is not intended to retrieve this way.
+			// use dataset
+			//var datacity = user[0].attr("data-city");
+			var datacity = user[0].dataset.city;
+			console.log(datacity);
+			// You won't see data-itemprice in DOM tree of html document. 
+			// If you inspect span element, you won't see data-itemprice added to it.
+			// It manages the dataset internally.
+			user.data( "itemprice", "1999", true );
+			var itemprice = $(user[0]).data("itemprice"); // OR user.data("itemprice")
+			console.log(itemprice);
+			console.log(user[0].dataset); //{city:"Gent"}
+		});
+	}(jQuery));
+</script>
+</head>
+<body>
+	<span id="user" data-city="Gent">lensco</span>
+</body>
+</html>

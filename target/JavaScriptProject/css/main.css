@@ -1,0 +1,267 @@
+/* style for tag with id article-header */
+/*
+#article-header {}
+
+#article-footer {}
+*/
+
+/* style for header and footer tags which has class="color" */
+/*
+header.color {color:red;}
+footer.color {color:green;}
+*/
+
+/* Any tag that as class="text" */
+/*
+.text {font-style:italic; color:blue;}
+*/
+
+/* p tag that has attribute change-color and class text */
+/*
+p[change-color].text {font-style:italic; color:orange;}
+*/
+
+/*
+tag[attr=value].classname {...}
+p[change-color="dsfaABCDsdfsd"].text {font-style:italic; color:orange;}
+
+if change-color attr value starts with abcd
+p[change-color^="ABCDsafds"].text {font-style:italic; color:orange;}
+
+if change-color attr value ends with ABCD
+p[change-color$="ksadjfABCD"].text {font-style:italic; color:orange;}
+
+if change-color attr value has ABCD anywhere
+p[change-color$="skajfsdABCDfsgd"].text {font-style:italic; color:orange;}
+
+*/
+
+
+
+/*pseudo classes
+http://www.w3schools.com/cssref/css_selectors.asp
+http://www.w3schools.com/css/css_pseudo_classes.asp
+*/
+/*
+syntax of PSEUDO CLASS - it has :
+selector:pseudo-class {property:value;}
+selector:pseudo-class(.classname) {property:value;}
+selector:pseudo-class([attr]) {property:value;}
+selector:pseudo-class([attr=value]) {property:value;}
+selector.class:pseudo-class {property:value;}
+
+
+p:first-letter
+p:first-line
+p:first-child - Selects every <p> elements that is the first child of its parent
+p:before	Insert content before every <p> element
+p:after	Insert content after every <p> element
+p:lang(it)	Selects every <p> element with a lang attribute value starting with "it"
+
+a:link		Selects all unvisited links
+a:visited	Selects all visited links
+a:active	Selects the active link
+a:hover		Selects links on mouse over
+input:focus	Selects the input element which has focus
+*/
+
+
+/* example of of content with :before/:after 
+article tag -> p tag with class before-content ---- add content before p's content */
+/*
+article p.before-content:before {content:"Read this -";}
+article p.before-content:after {content:"- Tell me how is it";}
+*/
+
+/* nth-child pseudo class
+tr which is a child of some other element (here table) gets gray color for each odd number
+you can apply same thing for many other elements like 
+<div>
+	<p>abc</p>
+	<p>def</p>
+	<p>ghe</p>
+	<p>fyu</p>
+	<p>ghw</p>
+</div>
+every odd number p child should get such and such style	
+p:nth-child(odd) {...}
+*/
+/*
+table#first-table tr:nth-child(odd) {background-color: gray;}
+table#first-table tr:nth-child(even) {background-color: lime;}
+table#first-table tr:nth-child(3) {font-family:sans-serif;font-size: xx-large;}
+*/
+
+/* NEGATION PSEUDO-CLASS 
+tr not having attribute maroon=false gets marron color font */
+/*
+table#first-table tr:not([maroon=false]) {color: maroon;}
+*/
+
+/* effect of *
+		* {color:blue} --- everything gets color bulue 
+*/
+
+/* effect of >
+
+<body>
+	<div>
+		<p>...</p>
+	</div>
+</body>
+		
+
+div > p{...} --- all p having div as parent gets such and such style
+body > p{...} --- nothing happens because p's parent is not body
+*/
+
+/* effect of + and ~
+
+p.bucky + p {color:blue;}
+
+All p that immediately follows p having class bucky turns blue. Condition is all those p should be a part of same parent.
+
+<body>
+	<div>
+		<p class="bucky">...</p>
+		<p class="bucky">...</p> -- will turn blue
+		<p class="bucky">...</p> -- will turn blue
+		<span> hi </span>
+		<p class="bucky">...</p> -- will not turn blue because it is not immediately following p tag
+		<p class="bucky">...</p> -- will turn blue
+	</div>
+	<div>
+		<p class="bucky">...</p>
+		<p class="bucky">...</p> -- will turn blue
+		<p class="bucky">...</p> -- will turn blue
+		<span> hi </span>
+		<p class="bucky">...</p> -- will not turn blue because it is not immediately following p tag
+		<p class="bucky">...</p> -- will turn blue
+	</div>
+</body>
+
+
+p.bucky ~ p{color:blue;}
+
+p should not immediately follow p with class bucky. 
+<div>
+		<p class="bucky">...</p>
+		<p class="bucky">...</p> -- will turn blue
+		<p class="bucky">...</p> -- will turn blue
+		<span> hi </span>
+		<p class="bucky">...</p> -- will also turn blue even though it is not immediately following p with class bucky
+		<p class="bucky">...</p> -- will turn blue
+	</div>
+*/
+
+
+/* Some html elements have default margins and paddings. We won't to make them all default to 0px because we want to design the layout by ourselves */
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+/*
+	display attribute
+	http://www.w3schools.com/cssref/pr_class_display.asp
+	http://www.w3schools.com/css/css_display_visibility.asp
+	
+	A block element is an element that takes up the full width available, and has a line break before and after it.
+
+	Examples of block elements:
+	
+	<h1>
+	<p>
+	<div>
+	
+	An inline element only takes up as much width as necessary, and does not force line breaks.
+	
+	Examples of inline elements:
+	
+	<span>
+	<a>
+	
+	You can change the element how does is it displayed by default
+	e.g.
+	li {display:inline;}
+	span {display:block;} --- This makes span behaves like div tag
+*/
+	/* for some browsers default display is inline. We won't to make all browsers work */
+	header, hgroup, nav, section, article, aside, footer {
+		display:block;
+	}
+	
+	body {
+		text-align: center;
+	}
+	
+	h2 {
+		font: bold 20px Tahoma;
+	}
+	
+	h1 {
+		font: bold 14px Tahoma;
+	}
+	section, aside {
+		border: 1px solid black;
+	}
+	#big_wrapper {
+		/*puts a border around main div tag*/
+		border: 5px solid green;
+		/*without this div tag will acquire the entire width of the browser */
+		width: 1000px; /*1000 is a nice number to remember and easy to play with later on. some people do use 960 grid as well*/
+		margin: 20px auto; /*same as margin-top:20px, margin-bottom:20px, margin-left:auto, margin-right:auto. auto means browser calculates a margin. it will put equal amount of space on both right and left*/
+		text-align: left;
+	}
+	#top_header {
+		padding: 20px; /* space between content of header and its border. There is no valid value 'auto' like margin */
+		background-color: yellow;
+	}
+	#top_menu {
+		background: blue;
+		color:white;
+	}
+	#top_menu li {
+		display: inline-block;
+		list-style: none; /*to remove bullets before li elements*/
+		padding: 5px;
+		font: bold 14px Tahoma;
+	}
+	
+	/*http://www.youtube.com/watch?v=yNtIO4X6cag&list=PL081AC329706B2953*/
+	
+	#main_section {
+		/* without proper width and just with float, main_section (section element) will automatically bee shrunk to minimum possible width and height according to its content
+		and elements after section(aside, footer etc) will move as it is its right.
+		without width, it will look very weird.
+		*/
+		float:left;
+		width: 658px; /* it's a width of actual content place*/
+		margin: 30px; /* margin to top, right, bottom, left will be added to width to calculate total size of the section element*/
+	}
+	
+	#side_news {
+		float:left;
+		width: 218px;
+		margin: 20px 0px;
+		padding: 30px;
+		background-color:aqua;
+	}
+	
+	#the_footer {
+		clear:both; /* see cssfloatingexample.html */
+		text-align:center;
+		padding:20px;
+		border-top: 2px solid green;
+	}
+	
+	article {
+		background:#FFFBCC;
+		border: 1px solid red;
+		padding:20px;
+		margin-bottom: 15px;
+	}
+	
+	article footer {
+		text-align: center;
+	}

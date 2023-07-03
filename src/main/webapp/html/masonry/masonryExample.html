@@ -1,0 +1,110 @@
+
+<!--
+http://masonry.desandro.com/ 
+
+After running this code, if you inspect the elements in browser, you will know that this plugin
+automatically calculates "left" property of css of participating elements based on column-width (grid) property.
+-->
+
+<html>
+<head>
+<script src="../js/jquery/jquery-1.6.1.js"></script>
+<script src="../js/masonary/masonry.pkgd.min.js"></script>
+
+<style type="text/css">
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+.masonry {
+	background: #EEE;
+	max-width: 640px;
+}
+
+.masonry .item {
+	width: 60px;
+	height: 60px;
+	/*float: left;*/
+	background: #D26;
+	border: 2px solid #333;
+	border-color: hsla(0, 0%, 0%, 0.5);
+	border-radius: 5px;
+}
+
+.item1 {
+}
+
+.item.w2 {
+	width: 120px;
+}
+
+.item.w3 {
+	width: 180px;
+}
+
+.item.w4 {
+	width: 240px;
+}
+
+.item.h2 {
+	height: 100px;
+}
+
+.item.h3 {
+	height: 130px;
+}
+
+.item.h4 {
+	height: 180px;
+}
+</style>
+
+<script>
+	// jquery ready function shorthand : $(handler)
+	$(function() {
+		var container = document.querySelector("#container");
+		//debugger;
+		var msnry = new Masonry(container, {
+				// it just creates a grid (calculates 'left' css property of participating elements accordingly)
+				columnWidth: 100, // if not provided, then by default it takes first element's width under the container as a column width
+			    itemSelector: '.item'
+			});
+	});
+</script>
+</head>
+<body>
+	<!-- <div id="container" class="masonary js-masonry" data-masonry-options='{ "columnWidth": 200, "itemSelector": ".item" }'>  -->
+	<div id="container" class="masonry js-masonry">
+		<!-- <div id="container">  -->
+		<div class="item"></div>
+		<div class="item w2 h2"></div>
+		<div class="item h3"></div>
+		<div class="item h2"></div>
+		<div class="item w3"></div>
+		<div class="item"></div>
+		<div class="item"></div>
+		<div class="item h2"></div>
+		<div class="item w2 h3"></div>
+		<div class="item"></div>
+		<div class="item h2"></div>
+		<div class="item"></div>
+		<div class="item w2 h2"></div>
+		<div class="item w2"></div>
+		<div class="item"></div>
+		<div class="item h2"></div>
+		<div class="item"></div>
+		<div class="item"></div>
+		<div class="item h3"></div>
+		<div class="item h2"></div>
+		<div class="item"></div>
+		<div class="item"></div>
+		<div class="item h2"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<style type="text/css">
+		/*
+			verticle-align works only for inline elements. 
+			It doesn't work for block elements (e.g. div, p, h1, ul/li). To make it work for block elements, you have to make them first inline.
+		*/
+	
+		img {
+			border:2px solid green;
+			/*
+				laptop image is the tallest in line. All other images will be aligned middle of tallest
+				element in the line. 
+			*/
+			vertical-align:middle;
+		}
+		p {
+			border:2px solid green;
+			display:inline;
+			margin:2px;
+			vertical-align:bottom;
+		}
+	</style>
+</head>
+<body style="border:2px solid red;width:600px;height:600px;">
+	<div style="height:300px; border:2px solid blue">
+	<img alt="laptop image is not displayed" src="laptop image.jpeg">
+	<img alt="drop image is not displayed" src="drop image.jpeg">
+	<img alt="flower image is not displayed" src="flower image.jpeg">
+	<div style="border:2px solid green;height:100px;margin:2px;">
+		<p style="font-size:30px;">Para1</p>
+		<p>Para2</p>
+	</div>
+	</div>
+</body>	

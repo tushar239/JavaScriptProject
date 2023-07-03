@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/incentives/incentives.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            /*$.ajax({
+             url: 'http://services.dev-sea.cobaltgroup.com/SearchService/rest/v2.0/search?context=incentives&filter={"and":[{"terms":{"webId":["gmps-86th-street"]}},{"terms":{"locale":["en_US"]}}]}&responseFields=incentiveId,subTitle,description',
+             type: 'GET',
+             username: "dev-sea-remote",
+             password: "dev-sea-remsleep"
+
+             }).done(function(data) {
+             $.each(data.result.sources, function (index, incentive) {
+             $("div#incentives")
+             .append("<B>Category:      </B>" + incentive.vehicleCriteria.category)
+             .append("<BR/>")
+             .append("<B>SubTitle:      </B>" + incentive.subTitle)
+             .append("<BR/>")
+             .append("<B>Description:   </B>" + incentive.description)
+             .append("<BR/>")
+             .append("<img src='"+incentive.imageLocation+"'/>")
+             .append("<BR/>")
+             .append("--------------------------------------------------------------");
+
+             });
+             });*/
+            var NOT_APPLICABLE_AVAILABLE = '.... NOT APPLICABLE OR NOT AVAILABLE....';
+
+            displayIncentives(incentivesModule.getHoldenIncentives());
+            displayIncentives(incentivesModule.getGmpsIncentives());
+
+            function displayIncentives(incentivesArray) {
+                $.each(incentivesArray, function (index, incentive) {
+                    $("div#incentives table#incentivesTable")
+                            .append("<tr><td>Web Id</td><td><B>" + incentive.webId + "</B></td></tr>")
+                            .append("<tr><td>Locale</td><td>" + incentive.locale + "</td></tr>")
+                            .append("<tr><td>Owner Type</td><td><B>" + incentive.ownerType + "</B></td></tr>")
+                            .append("<tr><td>Offer Type</td><td><B>" + incentive.offerType + "</B></td></tr>")
+                            .append("<tr><td>Category</td><td><B>" + getCategory(incentive) + "</B></td></tr>")
+                            .append("<tr><td>SubOffer Type (Discount Amount Type)</td><td><B>" + getSubOfferType(incentive) + "</B></td></tr>")
+                            .append("<tr><td>Title</td><td>" + getTitle(incentive) + "</td></tr>")
+                            .append("<tr><td>SubTitle</td><td>" + getSubTitle(incentive) + "</td></tr>")
+                            .append("<tr><td>DisplayOnSpecialsListingPage</td><td>" + getDisplayOnSpecialsListingPage(incentive) + "</td></tr>")
+                            .append("<tr><td>DisplayOnSpecialsWidgets</td><td>" + getDisplayOnSpecialsWidgets(incentive) + "</td></tr>")
+                            .append("<tr><td>HideIfNoInventory</td><td>" + getHideIfNoInventory(incentive) + "</td></tr>")
+                            .append("<tr><td>IsFeaturedLogoIncentive</td><td>" + getIsFeaturedLogoIncentive(incentive) + "</td></tr>")
+                            .append("<tr><td>Actual Title</td><td>" + getCustomActualOfferTitle(incentive) + "</td></tr>")
+                            .append("<tr><td>Actual Subtitle</td><td>" + getCustomActualOfferSubTitle(incentive) + "</td></tr>")
+                            .append("<tr><td>Description</td><td>" + getDescription(incentive) + "</td></tr>")
+                            .append("<tr><td>Disclaimer</td><td>" + getDisclaimer(incentive) + "</td></tr>")
+                            .append("<tr><td>Vehicle Count</td><td>" + getVehicleCount(incentive) + "</td></tr>")
+                            .append("<tr><td>Price Prefix</td><td>" + getCustomPrimaryPricingPrefix(incentive) + "</td></tr>")
+                            .append("<tr><td>Value</td><td>" + getValue(incentive) + "</td></tr>")
+                            .append("<tr><td>Localized Value</td><td>" + getLocalizedValue(incentive) + "</td></tr>")
+                            .append("<tr><td>Price Suffix</td><td>" + getCustomPricingSuffix(incentive) + "</td></tr>")
+                            .append("<tr><td>Expiration Date</td><td>" + getLocalizedExpirationDate(incentive) + "</td></tr>")
+                            .append("<tr><td>Primary Highlights</td><td>" + getCustomPrimaryHighlights(incentive) + "</td></tr>")
+                            .append("<tr><td>Secondary Highlights</td><td>" + getCustomSecondaryHighlights(incentive) + "</td></tr>")
+                            .append("<tr><td>Image Location</td><td>" + getImageLocation(incentive) + "<BR/>" + "<img src='" + getImageLocation(incentive) + "' width='150px'/></td></tr>")
+                            .append("<tr><td>Custom Image Location</td><td>" + getCustomImageLocation(incentive) + "<BR/>" + "<img src='" + getCustomImageLocation(incentive) + "' width='150px'/></td></tr>").append("<tr><td>Tags</td><td>" + getTags(incentive) + "</td></tr>")
+                            .append("<tr><td>Main Value</td><td>" + getMainValue(incentive) + "</td></tr>")
+                            .append("<tr><td>Sub Text</td><td>" + getSubText(incentive) + "</td></tr>")
+                            .append("<tr><td>Coupon Code</td><td>" + getCouponCode(incentive) + "</td></tr>")
+                            .append("<tr><td>Asset URL</td><td>" + getAssetUrl(incentive) + "</td></tr>")
+                            .append("<tr><td>AutoMinimize</td><td>" + getAutoMinimize(incentive) + "</td></tr>")
+                            .append("<tr><td>AutoMinimizeInterval</td><td>" + getAutoMinimizeInterval(incentive) + "</td></tr>")
+                            .append("<tr><td>DisplayExpirationDate</td><td>" + getDisplayExpirationDate(incentive) + "</td></tr>")
+                            .append("<tr><td>CallToAction</td><td>" + getCallToAction(incentive) + "</td></tr>")
+                            .append("<tr><td>ThankYouPageTitle</td><td>" + getThankYouPageTitle(incentive) + "</td></tr>")
+                            .append("<tr><td>ThankYouPageDescription</td><td>" + getThankYouPageDescription(incentive) + "</td></tr>")
+                            .append("<tr><td>PrintToAction</td><td>" + getPrintToAction(incentive) + "</td></tr>")
+
+                            .append("<tr style='height:50px;'/>")
+                    ;
+
+                })
+
+            }
+            function getAutoMinimize(incentive) {
+                if(incentive.autoMinimize != undefined) {
+                    return incentive.autoMinimize;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getDisplayExpirationDate(incentive) {
+                if(incentive.displayExpirationDate != undefined) {
+                    return incentive.displayExpirationDate;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getAutoMinimizeInterval(incentive) {
+                if(incentive.autoMinimizeInterval) {
+                    return incentive.autoMinimizeInterval;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getCallToAction(incentive) {
+                if(incentive.callToAction) {
+                    return incentive.callToAction;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getThankYouPageTitle(incentive) {
+                if(incentive.thankYouPageTitle) {
+                    return incentive.thankYouPageTitle;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getThankYouPageDescription(incentive) {
+                if(incentive.thankYouPageDescription) {
+                    return incentive.thankYouPageDescription;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getPrintToAction(incentive) {
+                if(incentive.printToAction) {
+                    return incentive.printToAction;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getTitle(incentive) {
+                if (incentive.title) {
+                    return incentive.title;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getSubTitle(incentive) {
+                if (incentive.subTitle) {
+                    return incentive.subTitle;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getDescription(incentive) {
+                if (incentive.description) {
+                    return incentive.description;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getDisclaimer(incentive) {
+                if (incentive.disclaimer) {
+                    return incentive.disclaimer;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getDisplayOnSpecialsListingPage(incentive) {
+                if(incentive.displayOnSpecialsListingPage != undefined) {
+                    return incentive.displayOnSpecialsListingPage;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getDisplayOnSpecialsWidgets(incentive) {
+                if(incentive.displayOnSpecialsWidgets != undefined) {
+                    return incentive.displayOnSpecialsWidgets;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getHideIfNoInventory(incentive) {
+                if(incentive.hideIfNoInventory != undefined) {
+                    return incentive.hideIfNoInventory;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getIsFeaturedLogoIncentive(incentive) {
+                if(incentive.isFeaturedLogoIncentive != undefined) {
+                    return incentive.isFeaturedLogoIncentive;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+            function getValue(incentive) {
+                if (incentive.value) {
+                    return incentive.value;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getImageLocation(incentive) {
+                if (incentive.imageLocation) {
+                    return incentive.imageLocation;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+
+            function getSubOfferType(incentive) {
+                if (incentive.subOfferType) {
+                    return incentive.subOfferType;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCategory(incentive) {
+                if (incentive.vehicleCriteria && incentive.vehicleCriteria.category) {
+                    return incentive.vehicleCriteria.category;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getVehicleCount(incentive) {
+                if (incentive.vehicleCriteria && incentive.vehicleCriteria.vehicleCount) {
+                    return incentive.vehicleCriteria.vehicleCount;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getLocalizedValue(incentive) {
+                if (incentive.localizedFields && incentive.localizedFields.localizedValue) {
+                    return incentive.localizedFields.localizedValue;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getLocalizedExpirationDate(incentive) {
+                if (incentive.localizedFields && incentive.localizedFields.localizedExpirationDate) {
+                    return incentive.localizedFields.localizedExpirationDate;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomImageLocation(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.offerImageLocation) {
+                    return incentive.customConfiguration.offerImageLocation;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomPricingSuffix(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.pricingSuffix) {
+                    return incentive.customConfiguration.pricingSuffix;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomPrimaryPricingPrefix(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.primaryPricePrefix) {
+                    return incentive.customConfiguration.primaryPricePrefix;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomPrimaryHighlights(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.primaryHighlights) {
+                    return incentive.customConfiguration.primaryHighlights;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomSecondaryHighlights(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.secondaryHighlights) {
+                    return incentive.customConfiguration.secondaryHighlights;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomActualOfferTitle(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.actualOfferTitle) {
+                    return incentive.customConfiguration.actualOfferTitle;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCustomActualOfferSubTitle(incentive) {
+                if (incentive.customConfiguration && incentive.customConfiguration.actualOfferSubTitle) {
+                    return incentive.customConfiguration.actualOfferSubTitle;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getTags(incentive) {
+                if (incentive.tags) {
+                    return incentive.tags;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getCouponCode(incentive) {
+                if (incentive.couponCode) {
+                    return incentive.couponCode;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getMainValue(incentive) {
+                if (incentive.mainValue) {
+                    return incentive.mainValue;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getAssetUrl(incentive) {
+                if (incentive.assetsInfo && incentive.assetsInfo[0]) {
+                    return incentive.assetsInfo[0].assetUrl;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getSecondaryValue(incentive) {
+                if (incentive.secondaryValue && incentive.secondaryValue) {
+                    return incentive.secondaryValue;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+            function getSubText(incentive) {
+                if (incentive.subText) {
+                    return incentive.subText;
+                }
+                return NOT_APPLICABLE_AVAILABLE;
+            }
+
+
+        });
+
+
+    </script>
+</head>
+
+<body>
+<div id="incentives">
+    <table id="incentivesTable" border="1">
+
+    </table>
+</div>
+</body>
+</html>

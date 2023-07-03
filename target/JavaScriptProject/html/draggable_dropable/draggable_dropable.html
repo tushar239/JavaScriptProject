@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link type="text/css"
+	href="../../css/jquery/jquery-ui-1.8.24.custom.css" rel="stylesheet" />
+<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
+<script src="../../js/jquery/jquery-ui.min-1.8.13.js"></script>
+<style type="text/css">
+div {
+	width: 150px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	float: left;
+}
+
+#flow1, #flow2 {
+	float: left;
+	height: 400px;
+}
+
+#task3 {
+	clear: both;
+}
+
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+
+</style>
+<script type="text/javascript">
+	$(function() {
+		//$( 'div[id^="task"]' ).selectable({ appendTo: "#flow1" });
+		$('div[id^="task"]').draggable({
+			snap : 'div',
+			snapMode : 'both'
+		// snap tolerance
+		});
+		// testing selectable plugin
+		//$( 'div[id="selectable"]' ).selectable({ appendTo: "#flow1" });
+		 
+		$('#flow1, #flow2').droppable(
+			{	
+				//disabled: true,// to disable droppable. drop method is never called 
+				// addClasses: false, // If set to false, will prevent the ui-droppable class from being added. This may be desired as a performance optimization when calling .droppable() init on hundreds of elements.
+				accept: ".ui-widget-content",// drop method will be called only if elements with a specifc selector is dragged 
+				//hoverClass: "drop-hover",
+				tolerance: "fit", // if draggable overlaps the droppable entirely, then only call drop function.  
+				drop : function(event, ui) {
+					//console.log("dropping");
+					$(this).addClass("ui-state-highlight");
+				}
+		});
+		
+		//Returns a jQuery object containing the droppable element.
+		/*var widget = $( '#flow2' ).droppable( "widget" );
+		console.log(widget);
+		widget = $( '#flow2' ).droppable( "widget" );
+		console.log(widget);*/
+	});
+</script>
+</head>
+<body>
+	
+	<div id="task1" class="ui-widget-content">
+		<p>Task 1</p>
+	</div>
+	<div id="task2" class="ui-widget-content">
+		<p>Task 2</p>
+	</div>
+	<div id="task3" class="ui-widget-content">
+		<p>Task 3</p>
+	</div>
+	<div id="selectable" class="ui-widget-content">
+		<p>To test Selectable plugin</p>
+	</div>
+	<div id="flow1" class="ui-widget-content">
+		<p class="ui-widget-header">In Progress</p>
+	</div>
+	<div id="flow2" class="ui-widget-content">
+		<p class="ui-widget-header">Finished</p>
+	</div>
+</body>
+</html>

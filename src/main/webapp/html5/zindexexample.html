@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style type="text/css">
+/*
+	z-index works only on position relative,absolute or fixed elements.
+	It has no effect on static positioned elements (e.g. box3).
+	
+	Higher the value of z-index property, the higher up the element will be in stack.
+	
+	One more thing to consider:
+	Relative poisitioned elements are still part of normal flow. So, they are just moved from their original position.
+	Other elements don't take its position like floating element.
+	It leaves the original position empty, if the relative positioned element has an offset (left, right, top, bottom) set for it.
+	
+	Absolute/Fixed poisitioned elements are taken out of the normal flow. so, other elements are moved up to take its position.
+	 
+*/
+	div {
+		background: #CCC;
+		border: 1px solid #666;
+		position:fixed;
+		width:200px;
+	}
+	.box1 {
+		background: pink;
+		left: 110px;
+		top: 50px;
+		z-index:120;
+	}
+	.box2 {
+		background: yellow;
+		left: 0px;
+		top: 130px;
+		z-index:520;
+	}
+	.box3 {
+		height: auto;
+		min-height: 125px;
+		/*
+		overriding position to be static.
+		*/
+		position: static;
+		/*
+		Has no effect on stacking order because the element is not positioned as 
+		absolute, relative or fixed.
+		*/
+		z-index: 1000;
+	}
+	.box4 {
+		background: orange;
+		left: 285px;
+		top: 65px;
+		z-index:3;
+	}
+	
+</style>
+</head>
+<body>
+	<div class="box1">
+		<p>This is box 1</p>
+	</div>
+	<div class="box2">
+		<p>This is box 2</p>
+	</div>
+	<div class="box3">
+		<p>This is box 3</p>
+	</div>
+	<div class="box4">
+		<p>This is box 4</p>
+	</div>
+</body>
